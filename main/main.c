@@ -9,6 +9,7 @@ static const char* TAG = "RELEASE";
 void app_main(void) {
   while (1) {
     ESP_LOGI(TAG, "feat");
+    ESP_LOGI(TAG, "refactor");
     vTaskDelay(1000 / portTICK_PERIOD_MS);
   }
 }
