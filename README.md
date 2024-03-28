@@ -1,32 +1,15 @@
-# _Sample project_
+# ESP32 IDF Project Boilerplate
 
-(See the README.md file in the upper level 'examples' directory for more information about examples.)
+## What's included 🚀
+- Check your commit messages by [commitlint](https://github.com/conventional-changelog/commitlint)
+- Generate [changelog](https://github.com/mikepenz/release-changelog-builder-action) and build firmware when you release a version
+- Check your [code style](https://github.com/jidicula/clang-format-action) by clang-format
 
-This is the simplest buildable example. The example is used by command `idf.py create-project`
-that copies the project to user specified path and set it's name. For more information follow the [docs page](https://docs.espressif.com/projects/esp-idf/en/latest/api-guides/build-system.html#start-a-new-project)
+### clang-format style
+We use Google's c/c++ coding style by default, but you can modify push.yml to the coding style you like.
 
-
-
-## How to use example
-We encourage the users to use the example as a template for the new projects.
-A recommended way is to follow the instructions on a [docs page](https://docs.espressif.com/projects/esp-idf/en/latest/api-guides/build-system.html#start-a-new-project).
-
-## Example folder contents
-
-The project **sample_project** contains one source file in C language [main.c](main/main.c). The file is located in folder [main](main).
-
-ESP-IDF projects are built using CMake. The project build configuration is contained in `CMakeLists.txt`
-files that provide set of directives and instructions describing the project's source files and targets
-(executable, library, or both). 
-
-Below is short explanation of remaining files in the project folder.
-
+## Usage
 ```
-├── CMakeLists.txt
-├── main
-│   ├── CMakeLists.txt
-│   └── main.c
-└── README.md                  This is the file you are currently reading
+git clone git@github.com:myfreax/esp32-idf-boilerplate.git
+yarn install
 ```
-Additionally, the sample project contains Makefile and component.mk files, used for the legacy Make based build system. 
-They are not used or needed when building with CMake and idf.py.

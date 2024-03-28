@@ -1,0 +1,87 @@
+              
+name: release
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+      
+permissions: write-all
+
+jobs:
+  release:
+    if: startsWith(github.ref, 'refs/tags/')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Build Binary
+        uses: espressif/esp-idf-ci-action@v1
+        with:
+          esp_idf_version: v5.1.2
+          target: esp32s3
+      - name: Build Changelog
+        id: github_release
+        uses: mikepenz/release-changelog-builder-action@v4
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          commitMode: true
+          configurationJson: |
+            {
+              "template": "#{{CHANGELOG}}",
+              "pr_template": "- #{{TITLE}} by #{{AUTHOR}} in #{{MERGE_SHA}}\n",
+              "categories": [
+                {
+                    "title": "## ✨ Feature",
+                    "labels": ["feat"]
+                },
+                {
+                    "title": "## 🐛 Fix",
+                    "labels": ["fix"]
+                },
+                {
+                    "title": "## 🏗️ Build",
+                    "labels": ["build"]
+                },
+                {
+                    "title": "## 🛠️ CI",
+                    "labels": ["ci"]
+                },
+                {
+                    "title": "## 🏝️ Chore",
+                    "labels": ["chore"]
+                },
+                {
+                    "title": "## 📖 Docs",
+                    "labels": ["docs"]
+                },
+                {
+                    "title": "## 🔨 Refactor",
+                    "labels": ["refactor"]
+                },
+                {
+                    "title": "## 🚀 Performance",
+                    "labels": ["perf"]
+                },
+                {
+                    "title": "## 🧪 Tests",
+                    "labels": ["test"]
+                }
+              ],
+              "label_extractor": [
+                {
+                  "pattern": "([^:]*):.*",
+                  "target": "$1",
+                  "on_property": "title"
+                }
+              ]
+            }
+      - name: Release
+        uses: softprops/action-gh-release@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          body: ${{steps.github_release.outputs.changelog}}
+          prerelease: ${{ contains(github.ref, '-rc') || contains(github.ref, '-b') || contains(github.ref, '-a') }}
+          files: build/firmware*
