@@ -12,6 +12,7 @@ void app_main(void) {
     ESP_LOGI(TAG, "refactor");
     ESP_LOGI(TAG, "fix");
     ESP_LOGI(TAG, "build");
+    ESP_LOGI(TAG, "chore");
     vTaskDelay(1000 / portTICK_PERIOD_MS);
   }
 }
