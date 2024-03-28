@@ -13,3 +13,4 @@ We use Google's c/c++ coding style by default, but you can modify push.yml to th
 git clone git@github.com:myfreax/esp32-idf-boilerplate.git
 yarn install
 ```
+![esp_idf](./docs/screen.png)
