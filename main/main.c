@@ -15,6 +15,7 @@ void app_main(void) {
     ESP_LOGI(TAG, "chore");
     ESP_LOGI(TAG, "docs");
     ESP_LOGI(TAG, "perf");
+    ESP_LOGI(TAG, "test");
     vTaskDelay(1000 / portTICK_PERIOD_MS);
   }
 }
